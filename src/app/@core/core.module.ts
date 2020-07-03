@@ -1,3 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
+import { StatsService } from './services/stats.service';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
@@ -52,6 +54,7 @@ import { StatsProgressBarService } from './mock/stats-progress-bar.service';
 import { VisitorsAnalyticsService } from './mock/visitors-analytics.service';
 import { SecurityCamerasService } from './mock/security-cameras.service';
 import { MockDataModule } from './mock/mock-data.module';
+import { StatsData } from './data/stats';
 
 const socialLinks = [
   {
@@ -72,6 +75,7 @@ const socialLinks = [
 ];
 
 const DATA_SERVICES = [
+  { provide: StatsData, useClass: StatsService },
   { provide: UserData, useClass: UserService },
   { provide: ElectricityData, useClass: ElectricityService },
   { provide: SmartTableData, useClass: SmartTableService },
@@ -148,6 +152,7 @@ export const NB_CORE_PROVIDERS = [
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
   ],
   exports: [
     NbAuthModule,
