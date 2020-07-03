@@ -1,3 +1,4 @@
+import { StatsService } from './../../@core/services/stats.service';
 import { DashboardModule } from './../dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import {
@@ -110,6 +111,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
   ],
   providers: [
     CountryOrdersMapService,
+    StatsService,
   ],
 })
 export class ECommerceModule { }
