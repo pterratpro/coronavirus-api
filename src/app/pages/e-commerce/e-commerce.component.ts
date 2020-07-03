@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ECommerceComponent implements OnInit {
   stats: GlobalStats[];
 
-  constructor(private statsService: StatsService){}
+  constructor(private statsService: StatsService) {}
   ngOnInit(): void {
     this.statsService.getAllGlobal().pipe().subscribe(data => {
       this.stats = Object.keys(data.countryitems[0]).map((key, index) => {
@@ -29,7 +29,6 @@ export class ECommerceComponent implements OnInit {
           total_unresolved: data.countryitems[0][key].total_unresolved,
         };
       });
-      console.log(this.stats);
     });
   }
 }

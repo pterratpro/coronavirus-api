@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StatsData, GlobalStats } from '../data/stats';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 
 @Injectable()
-export class StatsService{
+export class StatsService {
 
   constructor(private http: HttpClient) {}
 
