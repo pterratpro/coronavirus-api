@@ -8,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ECommerceComponent implements OnInit {
   stats: GlobalStats[];
-
+  // Globalcases
+  topCountryGlobalCases: string[];
+  topCountryGlobalCasesData: Object[];
+  // Globalcases today
+  topCountryToday: string[];
+  topCountryTodayCases: Object[];
   constructor(private statsService: StatsService) {}
   ngOnInit(): void {
     this.statsService.getAllGlobal().pipe().subscribe(data => {
@@ -28,7 +33,19 @@ export class ECommerceComponent implements OnInit {
           total_serious_cases: data.countryitems[0][key].total_serious_cases,
           total_unresolved: data.countryitems[0][key].total_unresolved,
         };
-      });
+    });
+    this.topCountryGlobalCases = this.stats
+      .sort((a, b) => b.total_cases - a.total_cases).slice(0, 5)
+      .map(stats => stats.country.title);
+    this.topCountryGlobalCasesData = this.stats
+      .sort((a, b) => b.total_cases - a.total_cases).slice(0, 5)
+      .map((stats) => ({name: stats.country.title, value: stats.total_cases}));
+    this.topCountryToday = this.stats
+      .sort((a, b) => b.total_new_cases_today - a.total_new_cases_today).slice(0, 5)
+      .map(stats => stats.country.title);
+    this.topCountryTodayCases = this.stats
+      .sort((a, b) => b.total_new_cases_today - a.total_new_cases_today).slice(0, 5)
+      .map((stats) => ({name: stats.country.title, value: stats.total_new_cases_today}));
     });
   }
 }

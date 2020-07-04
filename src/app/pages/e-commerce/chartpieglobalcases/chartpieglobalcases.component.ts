@@ -1,15 +1,19 @@
-import { AfterViewInit, Component, OnDestroy, Input } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-echarts-pie',
-  template: `
-    <div echarts [options]="options" class="echart"></div>
-  `,
+  selector: 'ngx-chartpieglobalcases',
+  templateUrl: './chartpieglobalcases.component.html',
+  styleUrls: ['./chartpieglobalcases.component.scss']
 })
-export class EchartsPieComponent implements AfterViewInit, OnDestroy {
+export class ChartpieglobalcasesComponent implements AfterViewInit, OnDestroy  {
+
   options: any = {};
   themeSubscription: any;
+  @Input()
+  legendData: any;
+  @Input()
+  globalData: any;
   constructor(private theme: NbThemeService) {
   }
 
@@ -29,7 +33,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['USA', 'Germany', 'France', 'Canada', 'Russia'],
+          data: this.legendData,
           textStyle: {
             color: echarts.textColor,
           },
@@ -40,13 +44,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
             type: 'pie',
             radius: '80%',
             center: ['50%', '50%'],
-            data: [
-              { value: 335, name: 'Germany' },
-              { value: 310, name: 'France' },
-              { value: 234, name: 'Canada' },
-              { value: 135, name: 'Russia' },
-              { value: 1548, name: 'USA' },
-            ],
+            data: this.globalData,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -77,4 +75,5 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }
+
 }

@@ -1,6 +1,19 @@
 <div class="row">
-  <div class="col-xxl-12">
-
-  </div>
+    <div *ngIf="topCountryGlobalCases && topCountryGlobalCasesData" class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Global situation (confirmed cases)</nb-card-header>
+        <nb-card-body>
+          <ngx-chartpieglobalcases [legendData]="topCountryGlobalCases" [globalData]="topCountryGlobalCasesData"></ngx-chartpieglobalcases>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div *ngIf="topCountryToday && topCountryTodayCases" class="col-lg-6">
+      <nb-card>
+        <nb-card-header>New cases today (confirmed cases)</nb-card-header>
+        <nb-card-body>
+          <ngx-chartpieglobalcases [legendData]="topCountryToday" [globalData]="topCountryTodayCases"></ngx-chartpieglobalcases>
+        </nb-card-body>
+      </nb-card>
+    </div>
 </div>
 
