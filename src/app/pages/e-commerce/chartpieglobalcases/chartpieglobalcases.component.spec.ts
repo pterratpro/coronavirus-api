@@ -8,7 +8,7 @@ describe('ChartpieglobalcasesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartpieglobalcasesComponent ]
+      declarations: [ ChartpieglobalcasesComponent],
     })
     .compileComponents();
   }));

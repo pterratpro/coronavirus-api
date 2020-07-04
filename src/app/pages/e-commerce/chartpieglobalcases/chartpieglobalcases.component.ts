@@ -4,7 +4,7 @@ import { NbThemeService } from '@nebular/theme';
 @Component({
   selector: 'ngx-chartpieglobalcases',
   templateUrl: './chartpieglobalcases.component.html',
-  styleUrls: ['./chartpieglobalcases.component.scss']
+  styleUrls: ['./chartpieglobalcases.component.scss'],
 })
 export class ChartpieglobalcasesComponent implements AfterViewInit, OnDestroy  {
 
