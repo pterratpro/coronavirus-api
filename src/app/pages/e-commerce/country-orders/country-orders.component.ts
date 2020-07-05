@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import { CountryOrderData } from '../../../@core/data/country-order';
@@ -10,9 +10,14 @@ import { CountryOrderData } from '../../../@core/data/country-order';
     <nb-card [size]="breakpoint.width >= breakpoints.md ? 'medium' : 'giant'">
       <nb-card-header>Covid-19 Map</nb-card-header>
       <nb-card-body>
-        <ngx-country-orders-map (select)="selectCountryById($event)"
+        <ngx-country-orders-map style="width:'100%'" (select)="selectCountryById($event)"
                                 countryId="USA">
         </ngx-country-orders-map>
+      </nb-card-body>
+    </nb-card>
+    <nb-card [size]="breakpoint.width >= breakpoints.md ? 'medium' : 'giant'">
+      <nb-card-header>Covid-19 Map statistics</nb-card-header>
+      <nb-card-body>
         <ngx-country-orders-chart [countryName]="countryName"
                                   [data]="countryData"
                                   [labels]="countriesCategories"
@@ -25,7 +30,8 @@ import { CountryOrderData } from '../../../@core/data/country-order';
 export class CountryOrdersComponent implements OnInit, OnDestroy {
 
   private alive = true;
-
+  @Input()
+  globalData: any;
   countryName = '';
   countryData: number[] = [];
   countriesCategories: string[];
@@ -51,13 +57,22 @@ export class CountryOrdersComponent implements OnInit, OnDestroy {
       });
   }
 
-  selectCountryById(countryName: string) {
-    this.countryName = countryName;
-    this.countryOrderService.getCountriesCategoriesData(countryName)
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((countryData) => {
-        this.countryData = countryData;
-      });
+  selectCountryById(countryName: any) {
+    this.countryName = countryName.name;
+    let countryDataNoFormat = this.globalData.find(country => country.country.title  === countryName.name);
+    if (!countryDataNoFormat)
+      countryDataNoFormat = this.globalData.find(country => country.country.code  === countryName.name);
+    if (!countryDataNoFormat)
+      countryDataNoFormat = this.globalData.find(country => country.country.title  === countryName.id);
+    if (!countryDataNoFormat)
+      countryDataNoFormat = this.globalData.find(country => country.country.code  === countryName.id);
+    this.countryData = [
+      countryDataNoFormat.total_cases,
+      countryDataNoFormat.total_recovered,
+      countryDataNoFormat.total_deaths,
+      countryDataNoFormat.total_new_cases_today,
+      countryDataNoFormat.total_new_deaths_today,
+    ].reverse();
   }
 
   ngOnDestroy() {
