@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+// tslint:disable-next-line:max-line-length
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import { LayoutService } from '../../../../@core/utils/layout.service';
@@ -7,6 +8,7 @@ import { LayoutService } from '../../../../@core/utils/layout.service';
 @Component({
   selector: 'ngx-country-orders-chart',
   styleUrls: ['./country-orders-chart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="header">
       <span class="caption">Selected Country/Region</span>
@@ -26,13 +28,18 @@ export class CountryOrdersChartComponent implements AfterViewInit, OnDestroy, On
   @Input() maxValue: number;
   @Input() labels: string[];
 
+
   private alive = true;
 
   option: any = {};
   echartsInstance;
 
   constructor(private theme: NbThemeService,
-              private layoutService: LayoutService) {
+              private layoutService: LayoutService,
+              private ref: ChangeDetectorRef) {
+    setInterval(() => {
+      this.ref.markForCheck();
+    }, 200);
     this.layoutService.onSafeChangeLayoutSize()
       .pipe(
         takeWhile(() => this.alive),

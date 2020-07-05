@@ -8,7 +8,7 @@ import { CountryOrderData } from '../../../@core/data/country-order';
   styleUrls: ['./country-orders.component.scss'],
   template: `
     <nb-card [size]="breakpoint.width >= breakpoints.md ? 'medium' : 'giant'">
-      <nb-card-header>Country Orders Statistics</nb-card-header>
+      <nb-card-header>Covid-19 Map</nb-card-header>
       <nb-card-body>
         <ngx-country-orders-map (select)="selectCountryById($event)"
                                 countryId="USA">
@@ -53,7 +53,6 @@ export class CountryOrdersComponent implements OnInit, OnDestroy {
 
   selectCountryById(countryName: string) {
     this.countryName = countryName;
-
     this.countryOrderService.getCountriesCategoriesData(countryName)
       .pipe(takeWhile(() => this.alive))
       .subscribe((countryData) => {
