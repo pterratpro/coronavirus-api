@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ECommerceComponent implements OnInit {
   stats: GlobalStats[];
+  statsCharts: GlobalStats[];
   // Globalcases
   topCountryGlobalCases: string[];
   topCountryGlobalCasesData: Object[];
   // Globalcases today
   topCountryToday: string[];
   topCountryTodayCases: Object[];
+  // Bar charts
   constructor(private statsService: StatsService) {}
   ngOnInit(): void {
     this.statsService.getAllGlobal().pipe().subscribe(data => {
@@ -34,6 +36,7 @@ export class ECommerceComponent implements OnInit {
           total_unresolved: data.countryitems[0][key].total_unresolved,
         };
     });
+    this.statsCharts = [...this.stats];
     this.topCountryGlobalCases = this.stats
       .sort((a, b) => b.total_cases - a.total_cases).slice(0, 5)
       .map(stats => stats.country.title);
@@ -47,5 +50,5 @@ export class ECommerceComponent implements OnInit {
       .sort((a, b) => b.total_new_cases_today - a.total_new_cases_today).slice(0, 5)
       .map((stats) => ({name: stats.country.title, value: stats.total_new_cases_today}));
     });
-  }
+}
 }

@@ -4,6 +4,11 @@
   </div>
 </div>
 <div class="row">
+  <div *ngIf="statsCharts" class="col-xxl-12">
+    <ngx-chartbar [globalDataChart]="statsCharts" ></ngx-chartbar>
+  </div>
+</div>
+<div class="row">
     <div *ngIf="topCountryGlobalCases && topCountryGlobalCasesData" class="col-lg-6">
       <nb-card>
         <nb-card-header>Global situation (confirmed cases)</nb-card-header>

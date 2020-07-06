@@ -58,6 +58,7 @@ import { EarningPieChartComponent } from './earning-card/back-side/earning-pie-c
 import { EarningCardFrontComponent } from './earning-card/front-side/earning-card-front.component';
 import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earning-live-update-chart.component';
 import { ChartpieglobalcasesComponent } from './chartpieglobalcases/chartpieglobalcases.component';
+import { ChartbarComponent } from './chartbar/chartbar.component';
 
 @NgModule({
   imports: [
@@ -110,6 +111,7 @@ import { ChartpieglobalcasesComponent } from './chartpieglobalcases/chartpieglob
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
     ChartpieglobalcasesComponent,
+    ChartbarComponent,
   ],
   providers: [
     CountryOrdersMapService,
