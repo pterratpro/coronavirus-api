@@ -1,7 +1,6 @@
 import { GlobalStats } from './../../../@core/data/stats';
 import { Component, OnDestroy, Input, OnInit } from '@angular/core';
 import { NbThemeService, NbColorHelper } from '@nebular/theme';
-import { GlobalStats } from '../../../@core/data/stats';
 @Component({
   selector: 'ngx-chartbar',
   templateUrl: './chartbar.component.html',
